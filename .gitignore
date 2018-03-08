@@ -97,5 +97,8 @@ ENV/
 # mkdocs documentation
 /site
 
-# mypy
-.mypy_cache/
+# Test db
+db.sqlite3
+
+# Intellij IDE
+.idea/
