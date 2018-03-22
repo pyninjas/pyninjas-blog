@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n humanize %}
+
+{% block title %}
+{% if tag %}{{ tag }} | pyninjas Blog{% else %}pyninjas Blog{% endif %}
+{% endblock %}
+
+{% block header %}
+{% if tag %}
+  {% blocktrans %}Blog/{{ tag }}{% endblocktrans %}
+{% else %}
+  {% trans "Blog/Index" %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% for post in posts %}
+<article class="preview">
+  <header>
+    <h2><a href="{% url 'blog:article' slug=post.slug %}">{{ post.title }}</a></h2>
+  </header>
+  <section class="preview">
+    <p>{{ post.meta_description }}</p>
+  </section>
+  <section class="review">
+    <footer>
+      <p>
+        {% blocktrans with datetime=post.published_at hunantime=post.published_at|naturaltime author=post.author %}Posted <time datetime="{{ datetime }}">{{ hunantime }}</time> by {{ author }}.{% endblocktrans %}
+      </p>
+    </footer>
+  </section>
+</article>
+{% endfor %}
+{% endblock %}

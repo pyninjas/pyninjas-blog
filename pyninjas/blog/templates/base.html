@@ -1,0 +1,29 @@
+{% load i18n static %}
+<!DOCTYPE html>{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:"en" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% else %}dir="ltr"{% endif %}>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="{% trans "Simple Blog Application for Django" %}">
+    <meta name="keywords" content="{% trans "django, python, blog, plugin"%}">
+    <meta name="author" content="Emin Mastizada">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'blog/blog.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <div class="container">
+    <header id="header"><h1>{% block header %}Simple header{% endblock %}</h1></header>
+    <div class="content blog">
+      {% block content %}{% endblock %}
+    </div>
+    <aside class="sidebar">
+      {% block sidebar %}
+        {% for tag in tags %}
+        {{ tag }}
+        {% endfor %}
+      {% endblock %}
+    </aside>
+    <footer id="footer">{% block footer %}<a href="https://pyninjas.com">pyninjas.com</a>/blog{% endblock %}</footer>
+  </div>
+</body>
+</html>

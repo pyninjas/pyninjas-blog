@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 def featured_upload_path(instance, filename):
     logger.debug("Uploading file {name} as featured image for {post}".format(
-        name=filename, post=instance.name
+        name=filename, post=instance.slug
     ))
     return ospath.join('blog', str(instance.slug), filename)
 
@@ -18,6 +18,10 @@ def featured_upload_path(instance, filename):
 class Tag(models.Model):
     name = models.CharField(_("Name"), max_length=100)
     slug = models.SlugField(_("Slug"))
+
+    @property
+    def size(self):
+        return self.articles.count()
 
     def __str__(self):
         return self.name
@@ -39,9 +43,11 @@ class Post(models.Model):
     )
     tags = models.ManyToManyField(Tag, related_name='articles')
     is_draft = models.BooleanField(_("Draft"), default=True)
+    allow_comments = models.BooleanField(_("Allow Comments"), default=True)
     # Metas
     meta_description = models.CharField(_("Meta Description"), max_length=255, null=True, blank=True)
     meta_keywords = models.CharField(_("Meta Keywords"), max_length=160, null=True, blank=True)
+    published_at = models.DateTimeField(_("Publish Date"), null=True, blank=True)
     # Stamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -49,8 +55,13 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def save(self, *args, **kwargs):
+        if not self.published_at and not self.is_draft:
+            self.published_at = self.updated_at
+        super(Post, self).save(*args, **kwargs)
+
     class Meta:
-        ordering = ('-created_at',)
+        ordering = ('-published_at',)
         verbose_name = _("Post")
         verbose_name_plural = _("Posts")
 

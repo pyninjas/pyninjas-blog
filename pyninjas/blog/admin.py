@@ -26,15 +26,15 @@ class TagAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('slug', 'title', 'author', 'is_draft', 'created_at',)
+    list_display = ('slug', 'title', 'author', 'is_draft', 'published_at', 'created_at',)
     list_filter = ('tags', ('author', admin.RelatedOnlyFieldListFilter), 'is_draft', 'created_at', 'updated_at')
     prepopulated_fields = {'slug': ('title',)}
     fieldsets = (
         (_("Post Details"), {
-            'fields': ('title', 'slug', 'featured_image', 'author', 'article', 'tags', 'is_draft')
+            'fields': ('title', 'slug', 'featured_image', 'author', 'article', 'tags', ('is_draft', 'allow_comments'))
         }),
         (_("META (SEO)"), {
-            'fields': ('meta_description', 'meta_keywords')
+            'fields': ('meta_description', 'meta_keywords', 'published_at')
         }),
         (_("Stamps"), {
             'fields': ('created_at', 'updated_at')

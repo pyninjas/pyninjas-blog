@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+}
+.container {
+  display: flex;
+  flex-flow: row wrap;
+}
+#header {
+  background: yellowgreen;
+}
+#footer {
+  background: grey;
+}
+#header, .blog, .sidebar, #footer {
+  padding: 0.5rem;
+  flex-grow: 1;
+  flex-basis: 100%;
+}
+@media all and (min-width: 600px) {
+  /* if screen > 600px sidebar appears alongside blog getting 1/3rd of space */
+  .blog { flex: 3; }
+  .sidebar { flex: 1; }
+}
+section.review {
+  font-style: italic;
+  margin-left: 1rem;
+}
