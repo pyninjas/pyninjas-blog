@@ -1,0 +1,7 @@
+include README.rst
+include CHANGELOG.md
+include LICENSE
+recursive-include pyninjas/blog/static/blog *
+recursive-include pyninjas/blog/templates/blog *
+recursive-include pyninjas/blog/templatetags *
+recursive-include pyninjas/blog/migrations *

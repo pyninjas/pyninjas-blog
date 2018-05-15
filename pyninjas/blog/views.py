@@ -27,7 +27,7 @@ def index(request, tag=None):
         posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
-    return render(request, 'index.html', {'posts': posts, 'tag': _tag})
+    return render(request, 'blog/index.html', {'posts': posts, 'tag': _tag})
 
 
 def article(request, slug):
@@ -35,4 +35,4 @@ def article(request, slug):
         post = Post.objects.get(slug=slug)
     except Post.DoesNotExist:
         raise Http404(_(f"Article {slug} not found."))
-    return render(request, 'article.html', {'post': post})
+    return render(request, 'blog/article.html', {'post': post})

@@ -104,3 +104,6 @@ db.sqlite3
 .idea/
 demo/static/
 demo/media/
+
+# Pypi
+NOTE.self

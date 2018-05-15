@@ -10,6 +10,7 @@ INSTALL
 Add `pyninjas.blog` to `INSTALLED_APPS`:
 
 .. code-block:: python
+
     INSTALLED_APPS = [
       # other apps
       'pyninjas.blog',
@@ -18,26 +19,29 @@ Add `pyninjas.blog` to `INSTALLED_APPS`:
 Add `pyninjas.blog.urls` to your project's urls:
 
 .. code-block:: python
+
     urlpatterns = [
       # other urls
       path('blog/', include('pyninjas.blog.urls', namespace='blog')),
     ]
 
 By default pyninjas-blog has all templates needed for the blog.
-However it uses simple template for demo. You can enhance it with your current template by rewriting them:
+However it uses simple template for a demo. You can enhance it with your current template by rewriting them:
 
-
+* templates/blog/base.html
+* templates/blog/index.html
+* templates/blog/article.html
 
 FEATURES
 --------
 
-[x] Use of HTML as article format
-[] Atom and RSS feeds
-[] Preview for blog posts before publishing
-[x] slug only tag and article urls
-[] OpenGraph meta data
-[] Multilevel comments (replies)
-[] Loding contents using ajax
+* [x] Use of HTML as article format
+* [] Atom and RSS feeds
+* [] Preview for blog posts before publishing
+* [x] slug only tag and article urls
+* [] OpenGraph meta data
+* [] Multilevel comments (replies)
+* [] Loding contents using ajax
 
 
 License
