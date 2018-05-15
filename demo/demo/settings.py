@@ -19,6 +19,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'filebrowser',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -26,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'tinymce',
     'pyninjas.blog',
 ]
 
@@ -52,7 +54,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'pyninjas.blog.context_processors.tags'
+                'pyninjas.blog.context_processors.tags',
+                'pyninjas.blog.context_processors.blog_settings'
             ],
         },
     },
@@ -106,8 +109,12 @@ USE_TZ = True
 
 # Blog settings
 PAGINATION_LIMIT = 25
-BLOG_DESCRIPTION = "Demo Blog by pyninjas"
-BLOG_KEYWORD = "pyninjas, blog, test, django"
+BLOG_DESCRIPTION = "Simple Blog Application for Django"
+BLOG_KEYWORDS = "pyninjas, blog, test, django"
+BLOG_AUTHOR = "Emin Mastizada"
+HTML_FIELD_WIDGET = "tinymce.widgets.TinyMCE"
+TINYMCE_DEFAULT_CONFIG = {'theme': 'advanced', 'width': '100%', 'height': '20rem'}
+FILEBROWSER_DIRECTORY = "uploads/"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

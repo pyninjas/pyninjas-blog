@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n humanize %}
+
+{% block title %}{{ post.title }}{% endblock %}
+{% block meta_author %}{{ post.author }}{% endblock %}
+{% block meta_description %}{{ post.meta_description }}{% endblock %}
+{% block meta_keywords %}{{ post.meta_keywords }}{% endblock %}
+
+{% block header %}<a href="{% url 'blog:index' %}">{% trans "Blog" %}</a>/{{ post.title }}{% endblock %}
+
+{% block content %}
+    {{ post.article|safe }}
+    <em>{% blocktrans with datetime=post.published_at hunantime=post.published_at|naturaltime author=post.author %}Posted <time datetime="{{ datetime }}" title="{{ datetime }}">{{ hunantime }}</time> by {{ author }}.{% endblocktrans %}</em>
+{% endblock %}

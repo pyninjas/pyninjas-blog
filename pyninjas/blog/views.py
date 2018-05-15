@@ -11,7 +11,7 @@ def index(request, tag=None):
         try:
             _tag = Tag.objects.get(slug=tag)
         except Tag.DoesNotExist:
-            raise Http404(_("Tag {tag} not found.").format(tag=tag))
+            raise Http404(_(f"Tag {tag} not found."))
         qs = _tag.articles.all()
     else:
         qs = Post.objects.all()
@@ -31,5 +31,8 @@ def index(request, tag=None):
 
 
 def article(request, slug):
-    # testing
-    return index(request, slug)
+    try:
+        post = Post.objects.get(slug=slug)
+    except Post.DoesNotExist:
+        raise Http404(_(f"Article {slug} not found."))
+    return render(request, 'article.html', {'post': post})

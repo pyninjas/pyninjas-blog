@@ -1,6 +1,7 @@
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import admin
 from .models import Tag, Post, Comment
+from .forms import PostForm
 
 
 class InlineCommentAdmin(admin.TabularInline):
@@ -45,3 +46,5 @@ class PostAdmin(admin.ModelAdmin):
     inlines = [
         InlineCommentAdmin
     ]
+    form = PostForm
+
