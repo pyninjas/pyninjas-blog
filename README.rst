@@ -7,6 +7,15 @@ INSTALL
 * Using pip: `pip install pyninjas-blog`
 * Using source code: `python setup.py install`
 
+Add `django.contrib.humanize` to `INSTALLED_APPS` if not added:
+
+.. code-block:: python
+
+    INSTALLED_APPS = [
+      # other apps
+      'django.contrib.humanize',
+    ]
+    
 Add `pyninjas.blog` to `INSTALLED_APPS`:
 
 .. code-block:: python
