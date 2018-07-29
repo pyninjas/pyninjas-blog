@@ -39,11 +39,11 @@ FEATURES
 
 * [x] Use of HTML as article format
 * [] Atom and RSS feeds
-* [] Preview for blog posts before publishing
+* [x] Preview for blog posts before publishing
 * [x] slug only tag and article urls
 * [] OpenGraph meta data
 * [] Multilevel comments (replies)
-* [] Loding contents using ajax
+* [] Loding comment contents using ajax
 
 
 License

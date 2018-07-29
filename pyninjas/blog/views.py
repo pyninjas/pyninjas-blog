@@ -35,4 +35,6 @@ def article(request, slug):
         post = Post.objects.get(slug=slug)
     except Post.DoesNotExist:
         raise Http404(_(f"Article {slug} not found."))
+    if post.is_draft and not request.user.is_staff:
+        raise Http404(_(f"Article {slug} not found."))
     return render(request, 'blog/article.html', {'post': post})
