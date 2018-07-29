@@ -12,6 +12,8 @@ Add `pyninjas.blog` to `INSTALLED_APPS`:
 .. code-block:: python
 
     INSTALLED_APPS = [
+      # django apps
+      'django.contrib.humanize',
       # other apps
       'pyninjas.blog',
     ]
