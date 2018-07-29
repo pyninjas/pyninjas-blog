@@ -17,9 +17,9 @@ def index(request, tag=None):
         qs = Post.objects.all()
         _tag = None
     if not request.user.is_staff:
-        qs.filter(is_draft=False)
+        qs = qs.filter(is_draft=False)
     # Paginate
-    paginator = Paginator(qs, settings.PAGINATION_LIMIT)
+    paginator = Paginator(qs, getattr(settings, 'PAGINATION_LIMIT', 25))
     page = request.GET.get('page', 1)
     try:
         posts = paginator.page(page)

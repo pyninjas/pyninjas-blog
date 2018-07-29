@@ -1,6 +1,8 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
+from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 from os import path as ospath
 import logging
 
@@ -25,6 +27,10 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return reverse('pyninjas_blog:tag', kwargs={'tag': self.slug})
 
     class Meta:
         ordering = ('name',)
@@ -59,6 +65,40 @@ class Post(models.Model):
         if not self.published_at and not self.is_draft:
             self.published_at = self.updated_at
         super(Post, self).save(*args, **kwargs)
+
+    @property
+    def is_published(self):
+        return not is_draft
+
+    @property
+    def previous(self):
+        try:
+            return self.get_previous_by_created_at(is_draft=False)
+        except Post.DoesNotExist:
+            return None
+
+    @property
+    def next(self):
+        try:
+            return self.get_next_by_created_at(is_draft=False)
+        except Post.DoesNotExist:
+            return None
+
+    @property
+    def similar_articles(self):
+        # @TODO any suggestions for improvement?
+        similar_limit = getattr(settings, 'BLOG_SIMILAR_ARTICLES_LIMIT', 5)
+        return Post.objects.filter(
+            is_draft=False, tags__in=self.tags.all()
+        ).exclude(pk=self.pk)[:similar_limit]
+
+    @classmethod
+    def latest_articles(cls, count: int=5):
+        return cls.objects.filter(is_draft=False).order_by('-created_at')[:count]
+
+    @models.permalink
+    def get_absolute_url(self):
+        return reverse('pyninjas_blog:article', kwargs={'slug': self.slug})
 
     class Meta:
         ordering = ('-published_at',)

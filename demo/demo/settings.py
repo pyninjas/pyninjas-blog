@@ -109,6 +109,7 @@ USE_TZ = True
 
 # Blog settings
 PAGINATION_LIMIT = 25
+BLOG_SIMILAR_ARTICLES_LIMIT = 5
 BLOG_DESCRIPTION = "Simple Blog Application for Django"
 BLOG_KEYWORDS = "pyninjas, blog, test, django"
 BLOG_AUTHOR = "Emin Mastizada"
