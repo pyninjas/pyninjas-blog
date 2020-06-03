@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 from os import path as ospath
 import logging
+from markdown_deux import markdown
 
 
 logger = logging.getLogger(__name__)
@@ -104,6 +105,10 @@ class Post(models.Model):
         ordering = ('-published_at',)
         verbose_name = _("Post")
         verbose_name_plural = _("Posts")
+       
+    def get_markdown(self):
+    	article = self.article
+    	return markdown(article)
 
 
 class Comment(models.Model):
